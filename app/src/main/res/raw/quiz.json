@@ -3,7 +3,7 @@
     {
       "question": "Pouet pouet ?",
       "goodAnswer": "toto",
-      "answer": [
+      "answers": [
         "patate",
         "pp",
         "toto",
@@ -13,7 +13,7 @@
     {
       "question": "Ques 2 ?",
       "goodAnswer": "tata",
-      "answer": [
+      "answers": [
         "popo",
         "papa",
         "titi",
