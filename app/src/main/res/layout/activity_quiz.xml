@@ -15,20 +15,20 @@
             android:layout_height="wrap_content"
             android:id="@+id/question"
             android:layout_marginTop="8dp"
-            android:text="pouet pouet pouet ?"/>
+            android:text="@string/question"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/resp1"
-            android:text="Response 1"
+            android:text="@string/rep1"
             android:layout_below="@id/question"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/resp2"
-            android:text="Response 2"
+            android:text="@string/rep2"
             android:layout_below="@id/question"
             android:layout_toRightOf="@id/resp1"/>
 
@@ -36,14 +36,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/resp3"
-            android:text="Response 3"
+            android:text="@string/rep3"
             android:layout_below="@id/resp1"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/resp4"
-            android:text="Response 4"
+            android:text="@string/rep4"
             android:layout_below="@id/resp1"
             android:layout_toRightOf="@id/resp1"/>
 </RelativeLayout>

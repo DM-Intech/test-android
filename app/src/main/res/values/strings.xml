@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Cat-quizz</string>
+    <string name="question">question</string>
+    <string name="rep1">rep1</string>
+    <string name="rep2">rep2</string>
+    <string name="rep3">rep3</string>
+    <string name="rep4">rep4</string>
 </resources>
