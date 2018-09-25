@@ -5,10 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".quiz">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,30 +18,29 @@
             android:layout_height="wrap_content"
             android:id="@+id/resp1"
             android:text="@string/rep1"
-            android:layout_below="@id/question"/>
+            app:layout_constraintTop_toBottomOf="@+id/question"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/resp2"
             android:text="@string/rep2"
-            android:layout_below="@id/question"
-            android:layout_toRightOf="@id/resp1"/>
+            app:layout_constraintTop_toBottomOf="@id/question"
+            app:layout_constraintLeft_toRightOf="@+id/resp1"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/resp3"
             android:text="@string/rep3"
-            android:layout_below="@id/resp1"/>
+            app:layout_constraintTop_toBottomOf="@id/resp1"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/resp4"
             android:text="@string/rep4"
-            android:layout_below="@id/resp1"
-            android:layout_toRightOf="@id/resp1"/>
-</RelativeLayout>
+            app:layout_constraintTop_toBottomOf="@id/resp1"
+            app:layout_constraintLeft_toRightOf="@+id/resp1"/>
 
 </android.support.constraint.ConstraintLayout>

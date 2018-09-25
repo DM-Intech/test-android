@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     List<Question> mylist = new ArrayList<Question>();
     String[] answerList;
+    int j = 0;
+    TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,38 +30,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         InputStream is = getResources().openRawResource(R.raw.quiz);
-        final TextView text = findViewById(R.id.question);
-        int[]  ids = new int[]{R.id.resp1, R.id.resp2, R.id.resp3, R.id.resp4};
+        text = findViewById(R.id.question);
 
         try {
             ReadJson json = new ObjectMapper().readValue(is,ReadJson.class);
-
             mylist = json.getQuestions();
-            answerList = mylist.get(1).getAnswers();
-            text.setText(mylist.get(1).getGoodAnswer());
-            for(int i = 0; i < ids.length; i++) {
+            showQuestion();
 
-                final Button temp = findViewById(ids[i]);
-                temp.setText(answerList[i]);
-                temp.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        verifyAnswer("" + temp.getText(), mylist.get(1).getGoodAnswer());
-                    }
-                });
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private Boolean verifyAnswer(String answer, String goodAnswer){
+
+    private void showQuestion(){
+        answerList = mylist.get(j).getAnswers();
+        text.setText(mylist.get(j).getQuestion());
+
+        int[]  ids = new int[]{R.id.resp1, R.id.resp2, R.id.resp3, R.id.resp4};
+        for(int i = 0; i < ids.length; i++) {
+
+            Button temp = findViewById(ids[i]);
+            temp.setText(answerList[i]);
+            temp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("coucou", "Lol");
+                    verifyAnswer("" + ((Button) v).getText(), mylist.get(j).getGoodAnswer());
+                }
+            });
+        }
+
+    }
+
+    private void verifyAnswer(String answer, String goodAnswer){
         if(answer == goodAnswer) {
-            // good answer action
-            return true;
+            j++;
+            if(j <= mylist.size()) {showQuestion();}
+            else{//fin de jeu
+                }
         }
         else {
             // bad answer action
-            return false;
         }
     }
 }
