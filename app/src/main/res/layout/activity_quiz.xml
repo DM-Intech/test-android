@@ -6,48 +6,59 @@
     android:layout_height="match_parent"
     tools:context=".quiz">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/question"
-            android:layout_marginTop="8dp"
-            android:text="@string/question"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/question"
+        android:layout_marginTop="8dp"
+        android:text="@string/question"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/resp1"
-            android:text="@string/rep1"
-            app:layout_constraintTop_toBottomOf="@+id/question"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resp1"
+        android:text="@string/rep1"
+        app:layout_constraintTop_toBottomOf="@+id/question"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/resp2"
-            android:text="@string/rep2"
-            app:layout_constraintTop_toBottomOf="@id/question"
-            app:layout_constraintLeft_toRightOf="@+id/resp1"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resp2"
+        android:text="@string/rep2"
+        app:layout_constraintTop_toBottomOf="@id/question"
+        app:layout_constraintLeft_toRightOf="@+id/resp1"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/resp3"
-            android:text="@string/rep3"
-            app:layout_constraintTop_toBottomOf="@id/resp1"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resp3"
+        android:text="@string/rep3"
+        app:layout_constraintTop_toBottomOf="@id/resp1"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/resp4"
-            android:text="@string/rep4"
-            app:layout_constraintTop_toBottomOf="@id/resp2"
-            app:layout_constraintLeft_toRightOf="@+id/resp3"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resp4"
+        android:text="@string/rep4"
+        app:layout_constraintTop_toBottomOf="@id/resp2"
+        app:layout_constraintLeft_toRightOf="@+id/resp3"/>
 
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/cat"
         android:src="@raw/cat"
         app:layout_constraintTop_toBottomOf="@+id/resp3"
         tools:ignore="UnknownId" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/helping"
+        android:text="@string/help"
+        app:layout_constraintTop_toBottomOf="@+id/cat"
+        app:layout_constraintLeft_toRightOf="@+id/cat"/>
+
+
 
 </android.support.constraint.ConstraintLayout>

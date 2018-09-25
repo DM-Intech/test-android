@@ -5,4 +5,7 @@
     <string name="rep2">rep2</string>
     <string name="rep3">rep3</string>
     <string name="rep4">rep4</string>
+
+    <string name="help">Indice</string>
+    <string name="help_message">Miaou Miaou !</string>
 </resources>

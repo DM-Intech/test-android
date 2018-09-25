@@ -7,6 +7,10 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.support.animation.DynamicAnimation;
+import android.support.animation.FloatPropertyCompat;
+import android.support.animation.SpringAnimation;
+import android.support.animation.SpringForce;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.JsonReader;
@@ -16,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.os.Vibrator;
+import android.widget.Toast;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,6 +58,19 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Button btHelp = findViewById(R.id.helping);
+
+        btHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),R.string.help_message,Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void showQuestion(){
@@ -107,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             GifDrawable gifFromResource = new GifDrawable( getResources(), R.raw.cat);
             gifFromResource.setSpeed(3f);
             gifFromResource.start();
+
         } catch (IOException e) {
             Log.e("gif error", "Une erreur lors du chargement", e);
         }
@@ -117,6 +137,4 @@ public class MainActivity extends AppCompatActivity {
         //playr.pause();
         //playr.stop();
     }
-
-
 }
