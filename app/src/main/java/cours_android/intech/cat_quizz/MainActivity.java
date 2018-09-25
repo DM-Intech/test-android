@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.os.Vibrator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -35,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         InputStream is = getResources().openRawResource(R.raw.quiz);
         text = findViewById(R.id.question);
-        int random = 2;
-        final int answerBTid = ids[random];
 
         try {
             ReadJson json = new ObjectMapper().readValue(is,ReadJson.class);
@@ -53,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         text.setText(mylist.get(j).getQuestion());
 
         int[]  ids = new int[]{R.id.resp1, R.id.resp2, R.id.resp3, R.id.resp4};
+        int random = 2;
+        final int answerBTid = ids[random];
+
         for(int i = 0; i < ids.length; i++) {
 
             Button temp = findViewById(ids[i]);
@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
             temp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                        verifyAnswer(answerBTid, v.getId());
-                    verifyAnswer("" + ((Button) v).getText(), mylist.get(j).getGoodAnswer());
+                    verifyAnswer(answerBTid, v.getId());
                 }
             });
         }
@@ -70,8 +69,12 @@ public class MainActivity extends AppCompatActivity {
     private void verifyAnswer(int answerBTid, int curentBTid){
         if(answerBTid == curentBTid) {
             j++;
-            else{//fin de jeu
-                }
+            if (j <= mylist.size() ) {
+                showQuestion();
+            }
+            else {
+                //fin de jeu
+            }
         }
         else {
             //sond plays + cat image change
