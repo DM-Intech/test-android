@@ -1,0 +1,33 @@
+{
+  "questions": [
+    {
+<<<<<<< HEAD
+      "question": "quel-est la capitale de l'alemange ?",
+      "goodAnswer": 3,
+=======
+      "question": "Pouet pouet ?",
+      "goodAnswer": 2,
+>>>>>>> c3b5bac0970126b3e432e1f66a034f69a409061a
+      "answers": [
+        "Paris",
+        "lisbonne",
+        "vancouver",
+        "Berlin"
+      ]
+    },
+    {
+<<<<<<< HEAD
+      "question": "What is the size of double variable ?",
+=======
+      "question": "Ques 2 ?",
+>>>>>>> c3b5bac0970126b3e432e1f66a034f69a409061a
+      "goodAnswer": 3,
+      "answers": [
+        "8 bit",
+        "16 bit",
+        "32 bit",
+        "64 bit"
+      ]
+    }
+  ]
+}

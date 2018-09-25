@@ -1,0 +1,24 @@
+{
+  "questions": [
+    {
+      "question": "Pouet pouet ?",
+      "goodAnswer": 2,
+      "answer": [
+        "patate",
+        "pp",
+        "toto",
+        "tata"
+      ]
+    },
+    {
+      "question": "Ques 2 ?",
+      "goodAnswer": 3,
+      "answer": [
+        "popo",
+        "papa",
+        "titi",
+        "tata"
+      ]
+    }
+  ]
+}

@@ -31,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
     String[] answerList;
     int j = 0;
     TextView text;
-    GifDrawable cat;
+<<<<<<< HEAD
     public MediaPlayer playr;
+=======
+    GifDrawable cat;
+>>>>>>> c3b5bac0970126b3e432e1f66a034f69a409061a
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,16 @@ public class MainActivity extends AppCompatActivity {
             v.vibrate(mllisecond);
         }
     }
+<<<<<<< HEAD
+    public void playSoud(int sound){
+        playr = MediaPlayer.create(this,sound);
+        playr.start();
+        //playr.pause();
+        //playr.stop();
+    }
+
+
+=======
 
     private void showGif(){
         try {
@@ -111,12 +124,5 @@ public class MainActivity extends AppCompatActivity {
             Log.e("gif error", "Une erreur lors du chargement", e);
         }
     }
-    public void playSoud(int sound){
-        playr = MediaPlayer.create(this,sound);
-        playr.start();
-        //playr.pause();
-        //playr.stop();
-    }
-
-
+>>>>>>> c3b5bac0970126b3e432e1f66a034f69a409061a
 }
