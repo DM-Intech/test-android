@@ -40,7 +40,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/resp4"
             android:text="@string/rep4"
-            app:layout_constraintTop_toBottomOf="@id/resp1"
-            app:layout_constraintLeft_toRightOf="@+id/resp1"/>
+            app:layout_constraintTop_toBottomOf="@id/resp2"
+            app:layout_constraintLeft_toRightOf="@+id/resp3"/>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@raw/cat"
+        app:layout_constraintTop_toBottomOf="@+id/resp3"
+        tools:ignore="UnknownId" />
 
 </android.support.constraint.ConstraintLayout>

@@ -20,17 +20,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import pl.droidsonroids.gif.GifDrawable;
+
 public class MainActivity extends AppCompatActivity {
 
     List<Question> mylist = new ArrayList<Question>();
     String[] answerList;
     int j = 0;
     TextView text;
+    GifDrawable cat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        showGif();
 
         InputStream is = getResources().openRawResource(R.raw.quiz);
         text = findViewById(R.id.question);
@@ -49,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         answerList = mylist.get(j).getAnswers();
         text.setText(mylist.get(j).getQuestion());
 
+
         int[]  ids = new int[]{R.id.resp1, R.id.resp2, R.id.resp3, R.id.resp4};
-        int random = 2;
-        final int answerBTid = ids[random];
+        final int answerBTid = ids[mylist.get(j).getGoodAnswer()];
 
         for(int i = 0; i < ids.length; i++) {
 
@@ -64,16 +69,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
+
     private void verifyAnswer(int answerBTid, int curentBTid){
         if(answerBTid == curentBTid) {
             j++;
-            if (j <= mylist.size() ) {
+            if (j < mylist.size() ) {
                 showQuestion();
             }
             else {
-                //fin de jeu
+                setContentView(R.layout.activity_end_quiz);
             }
         }
         else {
@@ -89,6 +94,16 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //deprecated in API 26
             v.vibrate(mllisecond);
+        }
+    }
+
+    private void showGif(){
+        try {
+            GifDrawable gifFromResource = new GifDrawable( getResources(), R.raw.cat);
+            gifFromResource.setSpeed(3f);
+            gifFromResource.start();
+        } catch (IOException e) {
+            Log.e("gif error", "Une erreur lors du chargement", e);
         }
     }
 }
