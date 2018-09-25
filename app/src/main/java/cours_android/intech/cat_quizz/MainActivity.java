@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import pl.droidsonroids.gif.GifDrawable;
@@ -29,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     List<Question> mylist = new ArrayList<Question>();
     String[] answerList;
-    int j = 0;
+    Random r = new Random();
+    int j;
     TextView text;
     GifDrawable cat;
     public MediaPlayer playr;
@@ -54,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void showQuestion(){
+        j = r.nextInt(mylist.size());
         answerList = mylist.get(j).getAnswers();
         text.setText(mylist.get(j).getQuestion());
 
@@ -77,9 +81,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void verifyAnswer(int answerBTid, int curentBTid){
         if(answerBTid == curentBTid) {
-            j++;
-            if (j < mylist.size() ) {
-                showQuestion();
+            if (j < mylist.size() && j >= 0) {
+                mylist.remove(j);
+                if(mylist.size() > 0) {
+                    showQuestion();
+                }
+                else{
+                    setContentView(R.layout.activity_end_quiz);
+                }
             }
             else {
                 setContentView(R.layout.activity_end_quiz);
