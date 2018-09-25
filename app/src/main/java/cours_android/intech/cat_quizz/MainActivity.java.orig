@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+<<<<<<< HEAD
     @Override
     protected void onStart() {
         super.onStart();
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+=======
+>>>>>>> 226efd1f2805f2e4db2967ba5cc30032d4504189
 
     private void showQuestion(){
         j = r.nextInt(mylist.size());
