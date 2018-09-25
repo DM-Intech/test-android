@@ -10,7 +10,7 @@ public class Question {
     public Question(){
     }
     private String question;
-    private String goodAnswer;
+    private int goodAnswer;
     private String[] answers;
 
     public String getQuestion() {
@@ -21,11 +21,11 @@ public class Question {
         this.question = question;
     }
 
-    public String getGoodAnswer() {
+    public int getGoodAnswer() {
         return goodAnswer;
     }
 
-    public void setGoodAnswer(String goodAnswer) {
+    public void setGoodAnswer(int goodAnswer) {
         this.goodAnswer = goodAnswer;
     }
 

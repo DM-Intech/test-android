@@ -1,6 +1,9 @@
 package cours_android.intech.cat_quizz;
 
+
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     String[] answerList;
     int j = 0;
     TextView text;
+    public MediaPlayer playr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
         text.setText(mylist.get(j).getQuestion());
 
         int[]  ids = new int[]{R.id.resp1, R.id.resp2, R.id.resp3, R.id.resp4};
-        int random = 2;
-        final int answerBTid = ids[random];
+        final int answerBTid = ids[mylist.get(j).getGoodAnswer()];
 
         for(int i = 0; i < ids.length; i++) {
 
@@ -78,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             //sond plays + cat image change
+            playSoud(R.raw.catsoud1);
             MakeVibrate(500);
         }
     }
@@ -85,10 +89,18 @@ public class MainActivity extends AppCompatActivity {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            v.vibrate(VibrationEffect.createOneShot(mllisecond, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             //deprecated in API 26
             v.vibrate(mllisecond);
         }
     }
+    public void playSoud(int sound){
+        playr = MediaPlayer.create(this,sound);
+        playr.start();
+        //playr.pause();
+        //playr.stop();
+    }
+
+
 }

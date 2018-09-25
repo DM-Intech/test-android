@@ -1,23 +1,23 @@
 {
   "questions": [
     {
-      "question": "Pouet pouet ?",
-      "goodAnswer": "toto",
+      "question": "quel-est la capitale de l'alemange ?",
+      "goodAnswer": 3,
       "answers": [
-        "patate",
-        "pp",
-        "toto",
-        "tata"
+        "Paris",
+        "lisbonne",
+        "vancouver",
+        "Berlin"
       ]
     },
     {
-      "question": "Ques 2 ?",
-      "goodAnswer": "tata",
+      "question": "What is the size of double variable ?",
+      "goodAnswer": 3,
       "answers": [
-        "popo",
-        "papa",
-        "titi",
-        "tata"
+        "8 bit",
+        "16 bit",
+        "32 bit",
+        "64 bit"
       ]
     }
   ]

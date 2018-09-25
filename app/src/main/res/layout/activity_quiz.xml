@@ -41,6 +41,6 @@
             android:id="@+id/resp4"
             android:text="@string/rep4"
             app:layout_constraintTop_toBottomOf="@id/resp1"
-            app:layout_constraintLeft_toRightOf="@+id/resp1"/>
+            app:layout_constraintLeft_toRightOf="@+id/resp3"/>
 
 </android.support.constraint.ConstraintLayout>
