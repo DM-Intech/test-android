@@ -34,19 +34,41 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         InputStream is = getResources().openRawResource(R.raw.quiz);
+<<<<<<< HEAD
         text = findViewById(R.id.question);
+=======
+        final TextView text = findViewById(R.id.question);
+        int[]  ids = new int[]{R.id.resp1, R.id.resp2, R.id.resp3, R.id.resp4};
         int random = 2;
         final int answerBTid = ids[random];
+>>>>>>> 782cf8a483bb6559a16ecf04f8d96d6413d93cd3
 
         try {
             ReadJson json = new ObjectMapper().readValue(is,ReadJson.class);
             mylist = json.getQuestions();
+<<<<<<< HEAD
             showQuestion();
 
+=======
+            answerList = mylist.get(1).getAnswers();
+            text.setText(mylist.get(1).getQuestion());
+            for(int i = 0; i < ids.length; i++) {
+
+                final Button temp = findViewById(ids[i]);
+                temp.setText(answerList[i]);
+                temp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        verifyAnswer(answerBTid, v.getId());
+                    }
+                });
+            }
+>>>>>>> 782cf8a483bb6559a16ecf04f8d96d6413d93cd3
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
 
     private void showQuestion(){
         answerList = mylist.get(j).getAnswers();
@@ -60,18 +82,27 @@ public class MainActivity extends AppCompatActivity {
             temp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                        verifyAnswer(answerBTid, v.getId());
+                    Log.e("coucou", "Lol");
                     verifyAnswer("" + ((Button) v).getText(), mylist.get(j).getGoodAnswer());
                 }
             });
         }
 
     }
-    private void verifyAnswer(int answerBTid, int curentBTid){
-        if(answerBTid == curentBTid) {
+
+    private void verifyAnswer(String answer, String goodAnswer){
+        if(answer == goodAnswer) {
             j++;
+            if(j <= mylist.size()) {showQuestion();}
             else{//fin de jeu
                 }
+        }
+        else {
+            // bad answer action
+=======
+    private void verifyAnswer(int answerBTid, int curentBTid){
+        if(answerBTid == curentBTid) {
+            // good answer action
         }
         else {
             //sond plays + cat image change
@@ -86,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //deprecated in API 26
             v.vibrate(mllisecond);
+>>>>>>> 782cf8a483bb6559a16ecf04f8d96d6413d93cd3
         }
     }
 }
