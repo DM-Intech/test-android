@@ -1,6 +1,7 @@
 package cours_android.intech.cat_quizz;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -11,17 +12,27 @@ import android.support.animation.DynamicAnimation;
 import android.support.animation.FloatPropertyCompat;
 import android.support.animation.SpringAnimation;
 import android.support.animation.SpringForce;
+import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Vibrator;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.request.RequestOptions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,17 +50,42 @@ public class MainActivity extends AppCompatActivity {
     Random r = new Random();
     int j;
     TextView text;
-    GifDrawable cat;
     public MediaPlayer playr;
 
+    ImageView catGif;
+    int gifRes;
+    float dX = 0f;
+    float dY = 0f;
+    float STIFFNESS = SpringForce.STIFFNESS_MEDIUM;
+    float DAMPING_RATIO = SpringForce.DAMPING_RATIO_LOW_BOUNCY;
+    SpringAnimation xAnimation;
+    SpringAnimation yAnimation;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        showGif();
+        catGif = findViewById(R.id.cat);
+        gifRes = R.raw.cat;
+        showGif(100,100, catGif, gifRes);
+
+        catGif.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                xAnimation = createSpringAnimation(
+                        catGif, SpringAnimation.X, catGif.getX(), STIFFNESS, DAMPING_RATIO);
+                yAnimation = createSpringAnimation(
+                        catGif, SpringAnimation.Y, catGif.getY(), STIFFNESS, DAMPING_RATIO);
+                catGif.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+        dragCat();
 
         InputStream is = getResources().openRawResource(R.raw.quiz);
+
         text = findViewById(R.id.question);
 
         try {
@@ -106,6 +142,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     setContentView(R.layout.activity_end_quiz);
+                    ImageView catClap = findViewById(R.id.clappingCat);
+                    gifRes = R.raw.cat_clap;
+                    showGif(300,300, catClap, gifRes);
                 }
             }
             else {
@@ -129,15 +168,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showGif(){
-        try {
-            GifDrawable gifFromResource = new GifDrawable( getResources(), R.raw.cat);
-            gifFromResource.setSpeed(3f);
-            gifFromResource.start();
+    //Show the gif on the layout
+    //int width ; int height is for the size of the gif
+    //imageView img is the must contain the id of the gif on the layout
+    //gifRes must contain the ressources
+    private void showGif(int width, int height, ImageView img, int gifRes){
+        RequestOptions myOptions = new RequestOptions()
+                .fitCenter()
+                .override(width, height);
 
-        } catch (IOException e) {
-            Log.e("gif error", "Une erreur lors du chargement", e);
-        }
+        Glide.with(this)
+                .load(gifRes)
+                .apply(myOptions)
+                .into(img);
     }
     public void playSoud(int sound){
         playr = MediaPlayer.create(this,sound);
@@ -145,4 +188,47 @@ public class MainActivity extends AppCompatActivity {
         //playr.pause();
         //playr.stop();
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void dragCat(){
+        catGif.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        dX = view.getX() - event.getRawX();
+                        dY = view.getY() - event.getRawY();
+
+                        xAnimation.cancel();
+                        yAnimation.cancel();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        catGif.animate()
+                                .x(event.getRawX() + dX)
+                                .y(event.getRawY() + dY)
+                                .setDuration(0)
+                                .start();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        yAnimation.start();
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    SpringAnimation createSpringAnimation(View view,
+                                          DynamicAnimation.ViewProperty property,
+                                          Float finalPosition,
+                                          @FloatRange(from = 0.0) Float stiffness,
+                                          @FloatRange(from = 0.0) Float dampingRatio) {
+        SpringAnimation animation = new SpringAnimation(view, property);
+        SpringForce spring = new SpringForce(finalPosition);
+        spring.setStiffness(stiffness);
+        spring.setDampingRatio(dampingRatio);
+        animation.setSpring(spring);
+        return animation;
+    }
+
 }
