@@ -12,6 +12,15 @@
         android:layout_marginTop="8dp"
         android:text="@string/question"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/score"
+        app:layout_constraintLeft_toRightOf="@id/question"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/score"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +54,6 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/cat"
         android:src="@raw/cat"
         android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent" />

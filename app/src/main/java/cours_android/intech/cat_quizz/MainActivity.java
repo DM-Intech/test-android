@@ -3,6 +3,7 @@ package cours_android.intech.cat_quizz;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.support.animation.DynamicAnimation;
 import android.support.animation.FloatPropertyCompat;
 import android.support.animation.SpringAnimation;
 import android.support.animation.SpringForce;
+import android.support.annotation.RequiresPermission;
 import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,8 +36,12 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -48,9 +54,12 @@ public class MainActivity extends AppCompatActivity {
     List<Question> mylist = new ArrayList<Question>();
     String[] answerList;
     Random r = new Random();
+    State state = new State();
     int j;
     TextView text;
+    TextView score;
     public MediaPlayer playr;
+    ObjectMapper maper = new ObjectMapper();
 
     ImageView catGif;
     ImageView flingCat;
@@ -67,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-
         catGif = findViewById(R.id.cat);
         flingCat = findViewById(R.id.flingCat);
 
@@ -92,11 +100,28 @@ public class MainActivity extends AppCompatActivity {
         InputStream is = getResources().openRawResource(R.raw.quiz);
 
         text = findViewById(R.id.question);
+        score = findViewById(R.id.score);
 
         try {
-            ReadJson json = new ObjectMapper().readValue(is,ReadJson.class);
+            ReadJson json = maper.readValue(is,ReadJson.class);
             mylist = json.getQuestions();
+
+            File file = new File(getFilesDir(),"state.json");
+            boolean exists = file.exists();
+            if(exists){
+                state = maper.readValue(new File(getFilesDir(), "state.json"), State.class);
+                if(state.getQuestionList().size() == 0){
+                    state.setScore(0);
+                    state.setQuestionList(mylist);
+                    maper.writeValue(new File(getFilesDir(),"state.json"), state);
+                }
+            }
+            else{
+                state.setQuestionList(mylist);
+                maper.writeValue(new File(getFilesDir(),"state.json"), state);
+            }
             showQuestion();
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -106,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         Button btHelp = findViewById(R.id.helping);
 
         btHelp.setOnClickListener(new View.OnClickListener() {
@@ -117,13 +143,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showQuestion(){
-        j = r.nextInt(mylist.size());
-        answerList = mylist.get(j).getAnswers();
-        text.setText(mylist.get(j).getQuestion());
+        //j = r.nextInt(mylist.size());
+        j = r.nextInt(state.getQuestionList().size());
+        //answerList = mylist.get(j).getAnswers();
+        answerList = state.getQuestionList().get(j).getAnswers();
+        //text.setText(mylist.get(j).getQuestion());
+        text.setText(state.getQuestionList().get(j).getQuestion());
+        score.setText(""+state.getScore());
 
 
         int[]  ids = new int[]{R.id.resp1, R.id.resp2, R.id.resp3, R.id.resp4};
-        final int answerBTid = ids[mylist.get(j).getGoodAnswer()];
+        //final int answerBTid = ids[mylist.get(j).getGoodAnswer()];
+        final int answerBTid = ids[state.getQuestionList().get(j).getGoodAnswer()];
 
         for(int i = 0; i < ids.length; i++) {
 
@@ -140,9 +171,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void verifyAnswer(int answerBTid, int curentBTid){
         if(answerBTid == curentBTid) {
-            if (j < mylist.size() && j >= 0) {
-                mylist.remove(j);
-                if(mylist.size() > 0) {
+            if (j < state.getQuestionList().size() && j >= 0) {
+                state.getQuestionList().remove(j);
+                if(state.getQuestionList().size() > 0) {
+                    state.setScore(state.getScore()+1);
                     showQuestion();
                 }
                 else{
@@ -157,19 +189,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {
-            //sond plays + cat image change
+            //cat image change
             playSoud(R.raw.catsoud1);
             MakeVibrate(500);
         }
+        saveState();
     }
-    public void MakeVibrate(int mllisecond) {
+    public void MakeVibrate(int mlliseconds) {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(mllisecond, VibrationEffect.DEFAULT_AMPLITUDE));
+            v.vibrate(VibrationEffect.createOneShot(mlliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             //deprecated in API 26
-            v.vibrate(mllisecond);
+            v.vibrate(mlliseconds);
         }
     }
 
@@ -192,6 +225,20 @@ public class MainActivity extends AppCompatActivity {
         playr.start();
         //playr.pause();
         //playr.stop();
+    }
+
+    private void saveState(){
+        try {
+            maper.writeValue(new File(getFilesDir(),"state.json"), state);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        saveState();
+        super.onDestroy();
     }
 
     @SuppressLint("ClickableViewAccessibility")
