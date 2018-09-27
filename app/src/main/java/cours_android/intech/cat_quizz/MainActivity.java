@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     ObjectMapper maper = new ObjectMapper();
 
     ImageView catGif;
+    ImageView flingCat;
     int gifRes;
     float dX = 0f;
     float dY = 0f;
@@ -76,8 +77,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         catGif = findViewById(R.id.cat);
+        flingCat = findViewById(R.id.flingCat);
+
         gifRes = R.raw.cat;
         showGif(100,100, catGif, gifRes);
+        gifRes =R.raw.cat_fly_neutral;
+        showGif(100, 100, flingCat, gifRes);
 
         catGif.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -176,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                     setContentView(R.layout.activity_end_quiz);
                     ImageView catClap = findViewById(R.id.clappingCat);
                     gifRes = R.raw.cat_clap;
-                    showGif(300,300, catClap, gifRes);
+                    showGif(400,400, catClap, gifRes);
                 }
             }
             else {
@@ -238,25 +243,41 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void dragCat(){
+
+
         catGif.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 switch (event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
+                        flingCat.setVisibility(flingCat.VISIBLE);
+
                         dX = view.getX() - event.getRawX();
                         dY = view.getY() - event.getRawY();
+
+                        flingCat.setX(view.getX() - event.getRawX());
+                        flingCat.setY(view.getY() - event.getRawY());
 
                         xAnimation.cancel();
                         yAnimation.cancel();
                         break;
                     case MotionEvent.ACTION_MOVE:
+                        catGif.setVisibility(catGif.INVISIBLE);
                         catGif.animate()
+                                .x(event.getRawX() + dX)
+                                .y(event.getRawY() + dY)
+                                .setDuration(0)
+                                .start();
+
+                        flingCat.animate()
                                 .x(event.getRawX() + dX)
                                 .y(event.getRawY() + dY)
                                 .setDuration(0)
                                 .start();
                         break;
                     case MotionEvent.ACTION_UP:
+                        catGif.setVisibility(catGif.VISIBLE);
+                        flingCat.setVisibility(flingCat.INVISIBLE);
                         yAnimation.start();
                         break;
                 }
