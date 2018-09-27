@@ -1,16 +1,18 @@
 package cours_android.intech.cat_quizz;
 
+import java.util.List;
+
 public class State {
-    private int questionNumber;
+    private List<Question> questionList;
     private int catAfection;
     private int score;
 
-    public int getQuestionNumber() {
-        return questionNumber;
+    public List<Question> getQuestionList() {
+        return questionList;
     }
 
-    public void setQuestionNumber(int questionNumber) {
-        this.questionNumber = questionNumber;
+    public void setQuestionList(List<Question> questionList) {
+        this.questionList = questionList;
     }
 
     public int getCatAfection() {
