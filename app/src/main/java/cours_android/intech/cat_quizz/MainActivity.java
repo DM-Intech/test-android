@@ -178,14 +178,11 @@ public class MainActivity extends AppCompatActivity {
                     showQuestion();
                 }
                 else{
-                    setContentView(R.layout.activity_end_quiz);
-                    ImageView catClap = findViewById(R.id.clappingCat);
-                    gifRes = R.raw.cat_clap;
-                    showGif(400,400, catClap, gifRes);
+                    endGame();
                 }
             }
             else {
-                setContentView(R.layout.activity_end_quiz);
+                endGame();
             }
         }
         else {
@@ -195,6 +192,20 @@ public class MainActivity extends AppCompatActivity {
         }
         saveState();
     }
+
+    public void endGame(){
+        setContentView(R.layout.activity_end_quiz);
+        ImageView catClap = findViewById(R.id.clappingCat);
+        gifRes = R.raw.cat_clap;
+        showGif(400,400, catClap, gifRes);
+        ImageView cat_dance = findViewById(R.id.cat_dancing);
+        gifRes = R.raw.cat_dancing;
+        showGif(200,200, cat_dance, gifRes);
+        int[]  winSounds = new int[]{R.raw.winsong1, R.raw.winsong2, R.raw.winsong3,};
+        int x = r.nextInt(winSounds.length);
+        playSoud(winSounds[x]);
+    }
+
     public void MakeVibrate(int mlliseconds) {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
@@ -238,6 +249,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         saveState();
+        if(playr != null) {
+            playr.stop();
+        }
         super.onDestroy();
     }
 
@@ -286,11 +300,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    SpringAnimation createSpringAnimation(View view,
-                                          DynamicAnimation.ViewProperty property,
-                                          Float finalPosition,
-                                          @FloatRange(from = 0.0) Float stiffness,
-                                          @FloatRange(from = 0.0) Float dampingRatio) {
+    SpringAnimation createSpringAnimation(View view, DynamicAnimation.ViewProperty property, Float finalPosition, @FloatRange(from = 0.0) Float stiffness, @FloatRange(from = 0.0) Float dampingRatio)
+    {
         SpringAnimation animation = new SpringAnimation(view, property);
         SpringForce spring = new SpringForce(finalPosition);
         spring.setStiffness(stiffness);
