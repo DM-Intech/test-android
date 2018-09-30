@@ -6,6 +6,15 @@ public class State {
     private List<Question> questionList;
     private int catAfection;
     private int score;
+    private int fishOptain;
+
+    public int getFishOptain() {
+        return fishOptain;
+    }
+
+    public void setFishOptain(int fishOptain) {
+        this.fishOptain = fishOptain;
+    }
 
     public List<Question> getQuestionList() {
         return questionList;

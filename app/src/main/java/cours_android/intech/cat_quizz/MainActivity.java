@@ -128,20 +128,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Button btHelp = findViewById(R.id.helping);
-
-        btHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(),R.string.help_message,Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     private void showQuestion(){
         //j = r.nextInt(mylist.size());
         j = r.nextInt(state.getQuestionList().size());
@@ -167,6 +153,26 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        Button btHelp = findViewById(R.id.helping);
+        if(state.getFishOptain() >= 1) {
+            btHelp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int goodanswer = state.getQuestionList().get(j).getGoodAnswer()+1;
+                    Toast.makeText(v.getContext(), "mite me the n° " + goodanswer, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            btHelp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "I want a Fish Mow", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
     }
 
     private void verifyAnswer(int answerBTid, int curentBTid){
@@ -175,6 +181,9 @@ public class MainActivity extends AppCompatActivity {
                 state.getQuestionList().remove(j);
                 if(state.getQuestionList().size() > 0) {
                     state.setScore(state.getScore()+1);
+                    if(state.getScore() >= 5){
+                        giveFish();
+                    }
                     showQuestion();
                 }
                 else{
@@ -189,8 +198,15 @@ public class MainActivity extends AppCompatActivity {
             //cat image change
             playSoud(R.raw.catsoud1);
             MakeVibrate(500);
+            state.setScore(state.getScore()-1);
         }
         saveState();
+    }
+
+    private void giveFish(){
+        state.setFishOptain(state.getFishOptain() + 1);
+        state.setScore(state.getScore() - 5);
+        Toast.makeText(this,"test",Toast.LENGTH_LONG).show();
     }
 
     public void endGame(){
