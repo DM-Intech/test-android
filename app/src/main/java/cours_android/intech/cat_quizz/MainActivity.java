@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     int goodanswer = state.getQuestionList().get(j).getGoodAnswer()+1;
-                    Toast.makeText(v.getContext(), "mite be the n° " + goodanswer, Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "might be the n° " + goodanswer, Toast.LENGTH_LONG).show();
                     state.setFishOptain(0);
                 }
             });
@@ -214,6 +214,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_end_quiz);
         ImageView catClap = findViewById(R.id.clappingCat);
         gifRes = R.raw.cat_clap;
+        TextView endScore = findViewById(R.id.end_score);
+        endScore.setText("score total : "+state.getScore());
         showGif(400,400, catClap, gifRes);
         ImageView cat_dance = findViewById(R.id.cat_dancing);
         gifRes = R.raw.cat_dancing;
