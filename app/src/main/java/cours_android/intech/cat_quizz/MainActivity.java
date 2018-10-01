@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     int goodanswer = state.getQuestionList().get(j).getGoodAnswer()+1;
-                    Toast.makeText(v.getContext(), "might be the n° " + goodanswer, Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "Essaye la n° " + goodanswer, Toast.LENGTH_LONG).show();
                     state.setFishOptain(state.getFishOptain() - 1);
                 }
             });
