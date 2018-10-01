@@ -160,8 +160,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     int goodanswer = state.getQuestionList().get(j).getGoodAnswer()+1;
+<<<<<<< HEAD
                     Toast.makeText(v.getContext(), "might be the n° " + goodanswer, Toast.LENGTH_LONG).show();
+                    state.setFishOptain(0);
+=======
+                    Toast.makeText(v.getContext(), "mite be the n° " + goodanswer, Toast.LENGTH_LONG).show();
                     state.setFishOptain(state.getFishOptain() - 1);
+>>>>>>> 4ea2bcbffeb1338dd9495bc380ffe794f59b3982
                 }
             });
         }
