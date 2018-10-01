@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     int goodanswer = state.getQuestionList().get(j).getGoodAnswer()+1;
                     Toast.makeText(v.getContext(), "mite be the n° " + goodanswer, Toast.LENGTH_LONG).show();
-                    state.setFishOptain(0);
+                    state.setFishOptain(state.getFishOptain() - 1);
                 }
             });
         }
@@ -182,8 +182,10 @@ public class MainActivity extends AppCompatActivity {
                 state.getQuestionList().remove(j);
                 if(state.getQuestionList().size() > 0) {
                     state.setScore(state.getScore()+1);
-                    if(state.getScore() >= 5){
+                    state.setGoodansersinrow(state.getGoodansersinrow()+1);
+                    if(state.getGoodansersinrow() >= 5){
                         giveFish();
+                        //display fish
                     }
                     showQuestion();
                 }
@@ -206,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void giveFish(){
         state.setFishOptain(state.getFishOptain() + 1);
-        state.setScore(state.getScore() - 5);
+        state.setGoodansersinrow(state.getGoodansersinrow() - 5);
         Toast.makeText(this,"test",Toast.LENGTH_LONG).show();
     }
 

@@ -7,6 +7,17 @@ public class State {
     private int catAfection;
     private int score;
     private int fishOptain;
+    private int goodansersinrow;
+
+
+    public int getGoodansersinrow() {
+        return goodansersinrow;
+    }
+
+    public void setGoodansersinrow(int goodansersinrow) {
+
+        this.goodansersinrow = goodansersinrow;
+    }
 
     public int getFishOptain() {
         return fishOptain;
