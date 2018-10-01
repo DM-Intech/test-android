@@ -92,27 +92,8 @@ public class MainActivity extends AppCompatActivity {
         question = findViewById(R.id.question);
         score = findViewById(R.id.score);
         fishcout = findViewById(R.id.fishcount);
-        catGif = findViewById(R.id.cat);
         flingCat = findViewById(R.id.flingCat);
         fish = findViewById(R.id.fish);
-
-        gifRes = R.raw.cat;
-        showGif(100,100, catGif, gifRes);
-        gifRes =R.raw.cat_fly_neutral;
-        showGif(100, 100, flingCat, gifRes);
-        fish.setImageResource(R.raw.fish);
-        catGif.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                xAnimation = createSpringAnimation(
-                        catGif, SpringAnimation.X, catGif.getX(), STIFFNESS, DAMPING_RATIO);
-                yAnimation = createSpringAnimation(
-                        catGif, SpringAnimation.Y, catGif.getY(), STIFFNESS, DAMPING_RATIO);
-                catGif.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });
-
-        dragCat();
 
         InputStream is = getResources().openRawResource(R.raw.quiz);
 
@@ -143,14 +124,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showQuestion(){
+
+        // -----------------------------
+        catGif = findViewById(R.id.cat);
+
+        if (state.getFishOptain() >= 1){
+            gifRes = R.raw.cat_eating_fish;
+        }
+        else {
+            gifRes = R.raw.cat;
+        }
+        showGif(100,100, catGif, gifRes);
+        gifRes =R.raw.cat_fly_neutral;
+        showGif(100, 100, flingCat, gifRes);
+        fish.setImageResource(R.raw.fish);
+        catGif.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                xAnimation = createSpringAnimation(
+                        catGif, SpringAnimation.X, catGif.getX(), STIFFNESS, DAMPING_RATIO);
+                yAnimation = createSpringAnimation(
+                        catGif, SpringAnimation.Y, catGif.getY(), STIFFNESS, DAMPING_RATIO);
+                catGif.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+        dragCat();
+
+        // -----------------------------
         //j = r.nextInt(mylist.size());
         j = r.nextInt(state.getQuestionList().size());
         //answerList = mylist.get(j).getAnswers();
         answerList = state.getQuestionList().get(j).getAnswers();
         //text.setText(mylist.get(j).getQuestion());
         question.setText(state.getQuestionList().get(j).getQuestion());
-        int scorepercent = state.getScore()*100/9;
-        score.setText("score: "+scorepercent+"%");
+        score.setText("score: "+state.getScore());
         fishcout.setText(""+state.getFishOptain());
 
 
@@ -185,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
             btHelp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "I want a Fish Mow", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "Pas de poisson ? Demerde toi !", Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -223,6 +231,15 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             setContentView(R.layout.activity_lost_game);
+            Button restart = findViewById(R.id.restartBtn);
+            restart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    stateClear();
+                    loadActivity();
+                }
+            });
+
             List<Question> temp = state.getQuestionList();
             TextView percent = findViewById(R.id.percent);
             percent.setText("you did : "+100/temp.size()+"%");
@@ -256,11 +273,10 @@ public class MainActivity extends AppCompatActivity {
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stateClear();
                 loadActivity();
             }
         });
-
-
     }
 
     public void MakeVibrate(int mlliseconds) {
@@ -308,15 +324,20 @@ public class MainActivity extends AppCompatActivity {
             playr.stop();
         }
         if(state.getScore() < -3){
-            List<Question> empty = new ArrayList<Question>();
-            state.setScore(0);
-            state.setFishOptain(0);
-            state.setGoodansersinrow(0);
-            state.setCatAfection(0);
-            state.setQuestionList(empty);
+            stateClear();
         }
         saveState();
         super.onDestroy();
+    }
+
+    public void stateClear(){
+        List<Question> empty = new ArrayList<Question>();
+        state.setScore(0);
+        state.setFishOptain(0);
+        state.setGoodansersinrow(0);
+        state.setCatAfection(0);
+        state.setQuestionList(empty);
+        saveState();
     }
 
     @SuppressLint("ClickableViewAccessibility")
