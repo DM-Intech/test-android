@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         question.setText(state.getQuestionList().get(j).getQuestion());
         score.setText("score: "+state.getScore());
         fishcout.setText(""+state.getFishOptain());
-x
+
 
         int[]  ids = new int[]{R.id.resp1, R.id.resp2, R.id.resp3, R.id.resp4};
         //final int answerBTid = ids[mylist.get(j).getGoodAnswer()];
