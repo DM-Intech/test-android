@@ -82,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadActivity();
+
+    }
+
+    private void loadActivity(){
         setContentView(R.layout.activity_quiz);
 
         question = findViewById(R.id.question);
@@ -144,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         answerList = state.getQuestionList().get(j).getAnswers();
         //text.setText(mylist.get(j).getQuestion());
         question.setText(state.getQuestionList().get(j).getQuestion());
-        score.setText(""+state.getScore());
+        score.setText("score: "+state.getScore());
         fishcout.setText(""+state.getFishOptain());
 
 
@@ -218,22 +223,35 @@ public class MainActivity extends AppCompatActivity {
     private void giveFish(){
         state.setFishOptain(state.getFishOptain() + 1);
         state.setGoodansersinrow(state.getGoodansersinrow() - 5);
-        Toast.makeText(this,"test",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Poisson +1",Toast.LENGTH_LONG).show();
     }
 
     public void endGame(){
         setContentView(R.layout.activity_end_quiz);
-        ImageView catClap = findViewById(R.id.clappingCat);
-        gifRes = R.raw.cat_clap;
         TextView endScore = findViewById(R.id.end_score);
         endScore.setText("score total : "+state.getScore());
+
+        ImageView catClap = findViewById(R.id.clappingCat);
+        gifRes = R.raw.cat_clap;
+
         showGif(400,400, catClap, gifRes);
         ImageView cat_dance = findViewById(R.id.cat_dancing);
         gifRes = R.raw.cat_dancing;
         showGif(200,200, cat_dance, gifRes);
+
         int[]  winSounds = new int[]{R.raw.winsong1, R.raw.winsong2, R.raw.winsong3,};
         int x = r.nextInt(winSounds.length);
         playSoud(winSounds[x]);
+
+        Button restart = findViewById(R.id.restartBtn);
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadActivity();
+            }
+        });
+
+
     }
 
     public void MakeVibrate(int mlliseconds) {
