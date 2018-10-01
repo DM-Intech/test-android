@@ -149,7 +149,8 @@ public class MainActivity extends AppCompatActivity {
         answerList = state.getQuestionList().get(j).getAnswers();
         //text.setText(mylist.get(j).getQuestion());
         question.setText(state.getQuestionList().get(j).getQuestion());
-        score.setText("score: "+state.getScore());
+        int scorepercent = state.getScore()*100/9;
+        score.setText("score: "+scorepercent+"%");
         fishcout.setText(""+state.getFishOptain());
 
 
@@ -199,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                     if(state.getQuestionList().size() > 0) {
                         state.setScore(state.getScore()+1);
                         state.setGoodansersinrow(state.getGoodansersinrow()+1);
-                        if(state.getGoodansersinrow() >= 5){
+                        if(state.getGoodansersinrow() >= 3){
                             giveFish();
                         }
                         showQuestion();
@@ -306,6 +307,15 @@ public class MainActivity extends AppCompatActivity {
         if(playr != null) {
             playr.stop();
         }
+        if(state.getScore() < -3){
+            List<Question> empty = new ArrayList<Question>();
+            state.setScore(0);
+            state.setFishOptain(0);
+            state.setGoodansersinrow(0);
+            state.setCatAfection(0);
+            state.setQuestionList(empty);
+        }
+        saveState();
         super.onDestroy();
     }
 
