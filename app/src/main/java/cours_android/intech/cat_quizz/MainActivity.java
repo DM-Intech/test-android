@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         j = r.nextInt(state.getQuestionList().size());
         answerList = state.getQuestionList().get(j).getAnswers();
         question.setText(state.getQuestionList().get(j).getQuestion());
-        score.setText("score: "+state.getScore());
+        score.setText("score: "+state.getScore()+"/9");
         fishcout.setText(""+state.getFishOptain());
 
 
@@ -233,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     stateClear();
+                    playr.stop();
                     loadActivity();
                 }
             });
@@ -252,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
     public void endGame(){
         setContentView(R.layout.activity_end_quiz);
         TextView endScore = findViewById(R.id.end_score);
-        endScore.setText("score total : "+state.getScore());
+        endScore.setText("score total : "+state.getScore()+"/9");
 
         ImageView catClap = findViewById(R.id.clappingCat);
         gifRes = R.raw.cat_clap;
@@ -271,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stateClear();
+                playr.stop();
                 loadActivity();
             }
         });
