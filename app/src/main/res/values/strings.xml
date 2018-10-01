@@ -7,7 +7,8 @@
     <string name="rep4">rep4</string>
     <string name="score">score</string>
     <string name="end_score">score total : </string>
-    <string name="congratulation">"Félicitation !"</string>
+    <string name="congratulation">Félicitation !</string>
+    <string name="fishcount">fishcount</string>
 
     <string name="help">Indice</string>
     <string name="help_message">Miaou Miaou !</string>

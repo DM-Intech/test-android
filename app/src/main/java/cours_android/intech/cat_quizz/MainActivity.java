@@ -52,17 +52,24 @@ import pl.droidsonroids.gif.GifDrawable;
 public class MainActivity extends AppCompatActivity {
 
     List<Question> mylist = new ArrayList<Question>();
+
     String[] answerList;
+
     Random r = new Random();
     State state = new State();
-    int j;
-    TextView text;
+
+    TextView question;
     TextView score;
+    TextView fishcout;
+
     public MediaPlayer playr;
     ObjectMapper maper = new ObjectMapper();
 
     ImageView catGif;
     ImageView flingCat;
+    ImageView fish;
+
+    int j;
     int gifRes;
     float dX = 0f;
     float dY = 0f;
@@ -71,19 +78,24 @@ public class MainActivity extends AppCompatActivity {
     SpringAnimation xAnimation;
     SpringAnimation yAnimation;
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        question = findViewById(R.id.question);
+        score = findViewById(R.id.score);
+        fishcout = findViewById(R.id.fishcount);
         catGif = findViewById(R.id.cat);
         flingCat = findViewById(R.id.flingCat);
+        fish = findViewById(R.id.fish);
 
         gifRes = R.raw.cat;
         showGif(100,100, catGif, gifRes);
         gifRes =R.raw.cat_fly_neutral;
         showGif(100, 100, flingCat, gifRes);
-
+        fish.setImageResource(R.raw.fish);
         catGif.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -98,9 +110,6 @@ public class MainActivity extends AppCompatActivity {
         dragCat();
 
         InputStream is = getResources().openRawResource(R.raw.quiz);
-
-        text = findViewById(R.id.question);
-        score = findViewById(R.id.score);
 
         try {
             ReadJson json = maper.readValue(is,ReadJson.class);
@@ -134,8 +143,9 @@ public class MainActivity extends AppCompatActivity {
         //answerList = mylist.get(j).getAnswers();
         answerList = state.getQuestionList().get(j).getAnswers();
         //text.setText(mylist.get(j).getQuestion());
-        text.setText(state.getQuestionList().get(j).getQuestion());
+        question.setText(state.getQuestionList().get(j).getQuestion());
         score.setText(""+state.getScore());
+        fishcout.setText(""+state.getFishOptain());
 
 
         int[]  ids = new int[]{R.id.resp1, R.id.resp2, R.id.resp3, R.id.resp4};
@@ -185,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
                     state.setGoodansersinrow(state.getGoodansersinrow()+1);
                     if(state.getGoodansersinrow() >= 5){
                         giveFish();
-                        //display fish
                     }
                     showQuestion();
                 }
@@ -255,8 +264,6 @@ public class MainActivity extends AppCompatActivity {
     public void playSoud(int sound){
         playr = MediaPlayer.create(this,sound);
         playr.start();
-        //playr.pause();
-        //playr.stop();
     }
 
     private void saveState(){
