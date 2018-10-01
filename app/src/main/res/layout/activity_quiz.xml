@@ -9,16 +9,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/question"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:text="@string/question"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/score"
-        app:layout_constraintLeft_toRightOf="@id/question"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/helping"
+        app:layout_constraintRight_toRightOf="@+id/helping"
+        android:layout_marginRight="15dp"
         android:text="@string/score"/>
 
     <Button
@@ -33,23 +33,21 @@
         android:layout_height="wrap_content"
         android:id="@+id/resp2"
         android:text="@string/rep2"
-        app:layout_constraintTop_toBottomOf="@id/question"
-        app:layout_constraintLeft_toRightOf="@+id/resp1"/>
+        app:layout_constraintTop_toBottomOf="@id/resp1" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/resp3"
         android:text="@string/rep3"
-        app:layout_constraintTop_toBottomOf="@id/resp1"/>
+        app:layout_constraintTop_toBottomOf="@id/resp2"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/resp4"
         android:text="@string/rep4"
-        app:layout_constraintTop_toBottomOf="@id/resp2"
-        app:layout_constraintLeft_toRightOf="@+id/resp3"/>
+        app:layout_constraintTop_toBottomOf="@id/resp3"/>
 
     <ImageView
         android:layout_width="wrap_content"

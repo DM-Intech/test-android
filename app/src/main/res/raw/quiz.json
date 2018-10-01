@@ -1,7 +1,7 @@
 {
   "questions": [
     {
-      "question": "What is the name of the network of computers from which the Internet has emerged?",
+      "question": "Quel est le nom du réseau d'ordinateurs à partir duquel Internet à émergé ?",
       "goodAnswer": 1,
       "answers": [
         "Licos",
@@ -23,7 +23,7 @@
       "difficulty" : 1
     },
     {
-      "question": "En informatique que signifie l'acronime RAM?",
+      "question": "En informatique, que signifie l'acronime RAM?",
       "goodAnswer": 2,
       "answers": [
         "Rosted Albino Mother",
@@ -34,18 +34,18 @@
       "difficulty" : 1
     },
     {
-      "question": "quel est la diférance entre un aigle royal et un Pygargue ?",
+      "question": "Quel est la différence entre un Aigle royal et un Pygargue ?",
       "goodAnswer": 1,
       "answers": [
-        "c'est le même oiseau",
-        "le bec est diférent",
-        "l'un est rouge",
-        "ils vivent en europe du nord"
+        "C'est le même oiseau",
+        "Le bec est diférent",
+        "L'un est rouge",
+        "Ils vivent en Europe du Nord"
       ],
       "difficulty" : 1
     },
     {
-      "question": "Alors ça Bosse ?",
+      "question": "Alors ça bosse ?",
       "goodAnswer": 0,
       "answers": [
         "OUI",
@@ -56,7 +56,7 @@
       "difficulty" : 1
     },
     {
-      "question": "quel est la capital du Benin ?",
+      "question": "Quelle est la capital du Benin ?",
       "goodAnswer": 0,
       "answers": [
         "Porto-Novo",
@@ -67,18 +67,18 @@
       "difficulty" : 2
     },
     {
-      "question": "le quels de ces titre on chanter les beatles",
+      "question": "Lesquels de ces titres ont été chanté par les Beatles ?",
       "goodAnswer": 2,
       "answers": [
-        "lucy in the sky with ruby",
-        "what is love",
-        "yellow submarine",
-        "never gonna give you up"
+        "Lucy in the sky with ruby",
+        "What is love",
+        "Yellow submarine",
+        "Never gonna give you up"
       ],
       "difficulty" : 2
     },
     {
-      "question": "en quel anné a été crée google",
+      "question": "En quelle année a été crée google ?",
       "goodAnswer": 1,
       "answers": [
         "1999",
@@ -89,11 +89,11 @@
       "difficulty" : 2
     },
     {
-      "question": "un ordianteur est basiquement ?",
+      "question": "Un ordinateur est basiquement ... ?",
       "goodAnswer": 1,
       "answers": [
         "un écran",
-        "un system d'operation",
+        "un système d'opération",
         "une calculatrice",
         "un écureuil"
       ],
