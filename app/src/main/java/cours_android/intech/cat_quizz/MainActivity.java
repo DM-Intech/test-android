@@ -143,11 +143,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showQuestion(){
-        //j = r.nextInt(mylist.size());
+
         j = r.nextInt(state.getQuestionList().size());
-        //answerList = mylist.get(j).getAnswers();
         answerList = state.getQuestionList().get(j).getAnswers();
-        //text.setText(mylist.get(j).getQuestion());
         question.setText(state.getQuestionList().get(j).getQuestion());
         int scorepercent = state.getScore()*100/9;
         score.setText("score: "+scorepercent+"%");

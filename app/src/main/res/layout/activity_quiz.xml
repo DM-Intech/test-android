@@ -54,7 +54,8 @@
         android:layout_height="wrap_content"
         android:src="@raw/cat"
         android:id="@+id/cat"
-        android:layout_margin="8dp"
+        android:layout_margin="20dp"
+        app:layout_constraintRight_toLeftOf="@id/helping"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
