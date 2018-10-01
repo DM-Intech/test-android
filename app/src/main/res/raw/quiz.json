@@ -90,7 +90,7 @@
     },
     {
       "question": "Un ordinateur est basiquement ... ?",
-      "goodAnswer": 1,
+      "goodAnswer": 2,
       "answers": [
         "un écran",
         "un système d'opération",

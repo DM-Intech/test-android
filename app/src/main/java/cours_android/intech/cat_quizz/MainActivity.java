@@ -187,32 +187,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void verifyAnswer(int answerBTid, int curentBTid){
-        if(answerBTid == curentBTid) {
-            if (j < state.getQuestionList().size() && j >= 0) {
-                state.getQuestionList().remove(j);
-                if(state.getQuestionList().size() > 0) {
-                    state.setScore(state.getScore()+1);
-                    state.setGoodansersinrow(state.getGoodansersinrow()+1);
-                    if(state.getGoodansersinrow() >= 5){
-                        giveFish();
+        if(state.getScore() >= -3){
+            if(answerBTid == curentBTid) {
+                if (j < state.getQuestionList().size() && j >= 0) {
+                    state.getQuestionList().remove(j);
+                    if(state.getQuestionList().size() > 0) {
+                        state.setScore(state.getScore()+1);
+                        state.setGoodansersinrow(state.getGoodansersinrow()+1);
+                        if(state.getGoodansersinrow() >= 5){
+                            giveFish();
+                        }
+                        showQuestion();
                     }
-                    showQuestion();
+                    else{
+                        endGame();
+                    }
                 }
-                else{
+                else {
                     endGame();
                 }
             }
             else {
-                endGame();
+                //cat image change
+                playSoud(R.raw.catsoud1);
+                MakeVibrate(500);
+                state.setScore(state.getScore()-1);
             }
+            saveState();
         }
-        else {
-            //cat image change
-            playSoud(R.raw.catsoud1);
-            MakeVibrate(500);
-            state.setScore(state.getScore()-1);
+        else{
+            setContentView(R.layout.activity_lost_game);
+            List<Question> temp = state.getQuestionList();
+            TextView percent = findViewById(R.id.percent);
+            percent.setText("you did : "+100/temp.size()+"%");
         }
-        saveState();
     }
 
     private void giveFish(){
