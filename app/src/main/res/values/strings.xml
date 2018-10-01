@@ -8,6 +8,7 @@
     <string name="score">score</string>
     <string name="end_score">score total : </string>
     <string name="congratulation">Félicitation !</string>
+    <string name="restart">Rejouer</string>
     <string name="fishcount">fishcount</string>
 
     <string name="help">Indice</string>
