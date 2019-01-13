@@ -66,7 +66,7 @@ pipeline {
       post {
         success {
           // Notify if the upload succeeded
-          mail to: 'beta-testers@example.com', subject: 'New build available!', body: 'Check it out!'
+          mail to: 'lopesvascomora@intechinfo.fr', subject: 'New build available!', body: 'Check it out!'
         }
       }
     }
@@ -74,7 +74,7 @@ pipeline {
   post {
     failure {
       // Notify developer team of the failure
-      mail to: 'Lopesvascomora@intechinfo.fr', subject: 'Oops!', body: "Build ${env.BUILD_NUMBER} failed; ${env.BUILD_URL}"
+      mail to: 'lopesvascomora@intechinfo.fr', subject: 'Oops!', body: "Build ${env.BUILD_NUMBER} failed; ${env.BUILD_URL}"
     }
   }
 }
