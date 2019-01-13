@@ -8,13 +8,13 @@ pipeline {
     stage('Compile') {
       steps {
         // Compile the app and its dependencies
-        sh 'sudo ./gradlew compileDebugSources'
+        sh 'sudo test-android/gradlew compileDebugSources'
       }
     }
     stage('Unit test') {
       steps {
         // Compile and run the unit tests for the app and its dependencies
-        sh 'sudo ./gradlew testDebugUnitTest testDebugUnitTest'
+        sh 'sudo test-android/gradlew testDebugUnitTest testDebugUnitTest'
 
         // Analyse the test results and update the build result as appropriate
         junit '**/TEST-*.xml'
@@ -23,7 +23,7 @@ pipeline {
     stage('Build APK') {
       steps {
         // Finish building and packaging the APK
-        sh 'sudo ./gradlew assembleDebug'
+        sh 'sudo test-android/gradlew assembleDebug'
 
         // Archive the APKs so that they can be downloaded from Jenkins
         archiveArtifacts '**/*.apk'
@@ -32,7 +32,7 @@ pipeline {
     stage('Static analysis') {
       steps {
         // Run Lint and analyse the results
-        sh 'sudo ./gradlew lintDebug'
+        sh 'sudo test-android/gradlew lintDebug'
         androidLint pattern: '**/lint-results-*.xml'
       }
     }
@@ -52,7 +52,7 @@ pipeline {
       }
       steps {
         // Build the app in release mode, and sign the APK using the environment variables
-        sh './gradlew assembleRelease'
+        sh 'sudo test-android/gradlew assembleRelease'
 
         // Archive the APKs so that they can be downloaded from Jenkins
         archiveArtifacts '**/*.apk'
